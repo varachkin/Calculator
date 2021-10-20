@@ -21,12 +21,19 @@ function insertErrorClass(id) {
 
 function insertSymbol(num) {
     output.innerHTML += num;
-    console.log(outputValue);
 }
 
 function checkSymbol(num) {
     // Проверяет на наличие двух точек (допустима только одна)
     if (num === '.') {
+        if (output.innerHTML[output.innerHTML.length - 1] === '/' ||
+            output.innerHTML[output.innerHTML.length - 1] === '*' ||
+            output.innerHTML[output.innerHTML.length - 1] === '-' ||
+            output.innerHTML[output.innerHTML.length - 1] === '+'
+        ) {
+            insertErrorClass('_dot');
+            return;
+        }
         for (let i = 0; i < output.innerHTML.length; i++) {
             if (output.innerHTML[i] === '.') {
                 insertErrorClass('_dot');
@@ -101,9 +108,25 @@ function clean() {
     memory.innerHTML = '';
 }
 
-
 function actionMath(symbol) {
-
+    if (symbol === '*' || symbol === '/' || symbol === '-' || symbol === '+') {
+        if (output.innerHTML[output.innerHTML.length - 1] === '(') {
+            insertErrorClass('_multi');
+            insertErrorClass('_split');
+            insertErrorClass('_minus');
+            insertErrorClass('_plus');
+            return;
+        }
+        output.innerHTML += symbol;
+        let outputValue = output.innerHTML;
+        if (outputValue[outputValue.length - 2] === '/' ||
+            outputValue[outputValue.length - 2] === '*' ||
+            outputValue[outputValue.length - 2] === '-' ||
+            outputValue[outputValue.length - 2] === '+'
+        ) {
+            output.innerHTML = outputValue.substring(0, outputValue.length - 2) + symbol;
+        }
+    }
 
 }
 
