@@ -1,10 +1,8 @@
 let output = document.getElementById("out-bottom");
 let memory = document.getElementById("out-top");
 let history = document.getElementById("history_content");
-let integer = document.getElementById('int');
 let d = document.getElementById('_dot');
 let res = document.getElementById('_result');
-let pr = document.getElementById('priority');
 let dataMemory;
 
 
@@ -125,14 +123,47 @@ function actionMath(symbol) {
             outputValue[outputValue.length - 2] === '+'
         ) {
             output.innerHTML = outputValue.substring(0, outputValue.length - 2) + symbol;
+        } else {
+            let interString = eval(output.innerHTML.substring(0, output.innerHTML.length - 1));
+            if (outputValue[outputValue.length - 2] === ')') {
+                if (+interString >= 0) {
+                    memory.innerHTML += interString + symbol;
+                } else {
+                    memory.innerHTML += '(' + interString + ')' + symbol;
+                }
+                output.innerHTML = '';
+            } else {
+                if (outputValue[0] !== '(') {
+                    if (+interString >= 0) {
+                        memory.innerHTML += interString + symbol;
+                    } else {
+                        memory.innerHTML += '(' + interString + ')' + symbol;
+                    }
+                    output.innerHTML = '';
+                }
+            }
         }
-    }
 
+    }
 }
 
 
 function getResult(symbol) {
+    if (output.innerHTML === '' ||
+        output.innerHTML[output.innerHTML.length - 1] === ')' ||
+        output.innerHTML[output.innerHTML.length - 1] === '(' ||
+        output.innerHTML[output.innerHTML.length - 1] === '*' ||
+        output.innerHTML[output.innerHTML.length - 1] === '/' ||
+        output.innerHTML[output.innerHTML.length - 1] === '+' ||
+        output.innerHTML[output.innerHTML.length - 1] === '-'
+    ) {
+        insertErrorClass('_result');
 
+    } else {
+        let result = eval(memory.innerHTML + output.innerHTML);
+        memory.innerHTML += output.innerHTML + symbol;
+        output.innerHTML = result;
+    }
 }
 
 function memoryWrite() {
