@@ -60,7 +60,7 @@ body {
     align-items: center;
     flex-direction: column;
     font-family: Arial, sans-serif;
-    background: linear-gradient(45deg, #ffecd2, #ffffff, #f4deff);
+    background: linear-gradient(45deg, #ffc06e, #ffffff, #c48be6);
     height: 100vh;
     margin: 0;
 }
@@ -106,18 +106,29 @@ sup {
 }
 
 .history_block {
-    width: 400px;
-    height: 600px;
-    background-color: #9f8bb0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
     position: absolute;
-    bottom: -600px;
+    bottom: -620px;
     transition: 0.5s;
     background-color: rgba(120, 120, 120, 0.95);
+    box-shadow: 1px 0px 3px 1px rgba(0, 0, 0, 0.6);
 }
 
 #history_content {
-    padding: 35px 5px 5px;
+    padding: 10px 5px 5px 40px;
     color: #FFFFFF;
+}
+
+#history_content li {
+    text-indent: 15px;
+    padding: 5px 0;
+}
+
+#history_content li::marker {
+    color: #f4a944;
+    font-weight: 600;
 }
 
 .history_checkbox:checked ~ .history_block {
@@ -131,7 +142,6 @@ sup {
 
 .output {
     font-family: SquadaOne, sans-serif;
-    width: 380px;
     border: 1px solid rgba(1, 1, 1, 0.2);
     background-color: #ffffff;
     display: flex;
@@ -140,9 +150,12 @@ sup {
     padding: 0 7px;
 }
 
+.output_field {
+    margin: 30px 7px 0 7px;
+}
+
 .output_1 {
     height: 30px;
-    margin: 30px auto 0;
     border-bottom: 0;
     font-size: 22px;
     font-style: italic;
@@ -151,7 +164,6 @@ sup {
 
 .output_2 {
     height: 90px;
-    margin: 0 auto;
     border-top: 0;
     font-size: 71px;
 }
@@ -188,7 +200,7 @@ sup {
     font-size: 28px;
     transition: 0.2s;
     border-radius: 3px;
-    box-shadow: 1px 0px 3px 1px rgba(0, 0, 0, 0.6);
+    box-shadow: 1px 0 3px 1px rgba(0, 0, 0, 0.6);
 }
 
 .btn_error {
@@ -295,10 +307,5 @@ sup {
 
     .history_btn {
         right: 15px;
-    }
-
-    .history_block {
-        height: 560px;
-        width: 350px;
     }
 }

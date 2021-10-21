@@ -286,11 +286,22 @@ function getResult(symbol) {
         console.log(result);
         if (String(result).length > 11) {
             memory.innerHTML += output.innerHTML + symbol;
-            output.innerHTML = String(result).substring(0, 12);
+            output.innerHTML = String(result).substring(0, 11);
         } else {
             memory.innerHTML += output.innerHTML + symbol;
             output.innerHTML = result;
         }
+        let historyString = memory.innerHTML + result;
+        let newHistoryString = '';
+        for (let i = 0; i < historyString.length; i++) {
+            if (historyString[i] === '/' || historyString[i] === '*' || historyString[i] === '-' || historyString[i] === '+' || historyString[i] === '=') {
+                console.log(historyString[i]);
+                newHistoryString += ' ' + historyString[i] + ' ';
+            } else {
+                newHistoryString += historyString[i];
+            }
+        }
+        history.innerHTML += '<li>' + newHistoryString + '</li>';
     }
 
 }
