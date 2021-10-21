@@ -310,6 +310,3 @@ function memoryRead() {
         insertErrorClass('_mr');
     }
 }
-
-
-// Доделать
