@@ -31,6 +31,29 @@
     }
 }
 
+@keyframes errorData {
+    0% {
+        transition: 0.1s;
+        color: rgba(155, 0, 0, 0.64);
+    }
+    25% {
+        color: #000000;
+        transition: 0.1s;
+    }
+    50% {
+        color: rgba(155, 0, 0, 0.64);
+        transition: 0.1s;
+    }
+    75% {
+        color: #000000;
+        transition: 0.1s;
+    }
+    100% {
+        transition: 0.1s;
+        color: rgba(155, 0, 0, 0.64);
+    }
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -128,7 +151,7 @@ sup {
 
 .output_2 {
     height: 90px;
-    margin: 0 auto 5px;
+    margin: 0 auto;
     border-top: 0;
     font-size: 71px;
 }
@@ -172,12 +195,8 @@ sup {
     animation: errorPress 2s;
 }
 
-.btn_error_bracket {
-    animation: errorPressBracket 3s;
-}
-
-.btn_error_function {
-    animation: errorPressFunction 3s;
+.error_data {
+    animation: errorData 2s;
 }
 
 .btn:focus, .history_btn:focus {

@@ -8,13 +8,25 @@ let dataMemory;
 
 function removeErrorClass() {
     let errorItem = document.querySelector('.btn_error');
-    errorItem.classList.remove('btn_error');
+    let errorData = document.querySelector('.error_data');
+    if (errorItem) {
+        errorItem.classList.remove('btn_error');
+    }
+    if (errorData) {
+        errorData.classList.remove('error_data');
+    }
+
 }
 
 function insertErrorClass(id) {
     let item = document.getElementById(`${id}`);
-    item.classList.add('btn_error');
-    setTimeout(removeErrorClass, 2000);
+    if (id !== '_output_field') {
+        item.classList.add('btn_error');
+        setTimeout(removeErrorClass, 2000);
+    } else {
+        item.classList.add('error_data');
+        setTimeout(removeErrorClass, 2000);
+    }
 }
 
 function insertSymbol(num) {
@@ -22,12 +34,60 @@ function insertSymbol(num) {
 }
 
 function checkSymbol(num) {
+    if (output.innerHTML.length >= 10) {
+        insertErrorClass('_output_field');
+        switch (+num) {
+            case 1:
+                insertErrorClass('_oneNum');
+                return;
+                break;
+            case 2:
+                insertErrorClass('_twoNum');
+                return;
+                break;
+            case 3:
+                insertErrorClass('_threeNum');
+                return;
+                break;
+            case 4:
+                insertErrorClass('_fourNum');
+                return;
+                break;
+            case 5:
+                insertErrorClass('_fiveNum');
+                return;
+                break;
+            case 6:
+                insertErrorClass('_sixNum');
+                return;
+                break;
+            case 7:
+                insertErrorClass('_sevenNum');
+                return;
+                break;
+            case 8:
+                insertErrorClass('_eightNum');
+                return;
+                break;
+            case 9:
+                insertErrorClass('_nineNum');
+                return;
+                break;
+        }
+        return;
+    }
+    if (memory.innerHTML[memory.innerHTML.length - 1] === '=') {
+        memory.innerHTML = '';
+        output.innerHTML = '';
+    }
     // Проверяет на наличие двух точек (допустима только одна)
     if (num === '.') {
         if (output.innerHTML[output.innerHTML.length - 1] === '/' ||
             output.innerHTML[output.innerHTML.length - 1] === '*' ||
             output.innerHTML[output.innerHTML.length - 1] === '-' ||
-            output.innerHTML[output.innerHTML.length - 1] === '+'
+            output.innerHTML[output.innerHTML.length - 1] === '+' ||
+            output.innerHTML[output.innerHTML.length - 1] === '(' ||
+            output.innerHTML[output.innerHTML.length - 1] === ')'
         ) {
             insertErrorClass('_dot');
             return;
@@ -42,6 +102,11 @@ function checkSymbol(num) {
 
     // Проверяет на наличие открывающей скобки (нельзя ввести закрывающую, если нет открывающей)
     if (num === ')') {
+        let lastSymbol = output.innerHTML[output.innerHTML.length - 1];
+        if (lastSymbol === '/' || lastSymbol === '*' || lastSymbol === '-' || lastSymbol === '+') {
+            insertErrorClass('_close_bracket');
+            return;
+        }
         let open = 0;
         let close = 0;
         for (let i = 0; i < output.innerHTML.length; i++) {
@@ -52,7 +117,7 @@ function checkSymbol(num) {
                 ++close;
             }
         }
-        if (open === 0 || close > 0) {
+        if (open === 0 || close > 0 || lastSymbol === '(') {
             insertErrorClass('_close_bracket');
             return;
         }
@@ -89,6 +154,46 @@ function checkSymbol(num) {
         output.innerHTML = num;
         return;
     }
+    if (output.innerHTML[output.innerHTML.length - 1] === ')') {
+        switch (+num) {
+            case 1:
+                insertErrorClass('_oneNum');
+                return;
+                break;
+            case 2:
+                insertErrorClass('_twoNum');
+                return;
+                break;
+            case 3:
+                insertErrorClass('_threeNum');
+                return;
+                break;
+            case 4:
+                insertErrorClass('_fourNum');
+                return;
+                break;
+            case 5:
+                insertErrorClass('_fiveNum');
+                return;
+                break;
+            case 6:
+                insertErrorClass('_sixNum');
+                return;
+                break;
+            case 7:
+                insertErrorClass('_sevenNum');
+                return;
+                break;
+            case 8:
+                insertErrorClass('_eightNum');
+                return;
+                break;
+            case 9:
+                insertErrorClass('_nineNum');
+                return;
+                break;
+        }
+    }
     insertSymbol(num);
 }
 
@@ -108,12 +213,15 @@ function clean() {
 
 function actionMath(symbol) {
     if (symbol === '*' || symbol === '/' || symbol === '-' || symbol === '+') {
-        if (output.innerHTML[output.innerHTML.length - 1] === '(') {
+        if (output.innerHTML[output.innerHTML.length - 1] === '(' || output.innerHTML === 'Infinity') {
             insertErrorClass('_multi');
             insertErrorClass('_split');
             insertErrorClass('_minus');
             insertErrorClass('_plus');
             return;
+        }
+        if (memory.innerHTML[memory.innerHTML.length - 1] === '=') {
+            memory.innerHTML = '';
         }
         output.innerHTML += symbol;
         let outputValue = output.innerHTML;
@@ -150,7 +258,6 @@ function actionMath(symbol) {
 
 function getResult(symbol) {
     if (output.innerHTML === '' ||
-        output.innerHTML[output.innerHTML.length - 1] === ')' ||
         output.innerHTML[output.innerHTML.length - 1] === '(' ||
         output.innerHTML[output.innerHTML.length - 1] === '*' ||
         output.innerHTML[output.innerHTML.length - 1] === '/' ||
@@ -161,9 +268,16 @@ function getResult(symbol) {
 
     } else {
         let result = eval(memory.innerHTML + output.innerHTML);
-        memory.innerHTML += output.innerHTML + symbol;
-        output.innerHTML = result;
+        console.log(result);
+        if (String(result).length > 11) {
+            memory.innerHTML += output.innerHTML + symbol;
+            output.innerHTML = String(result).substring(0, 12);
+        } else {
+            memory.innerHTML += output.innerHTML + symbol;
+            output.innerHTML = result;
+        }
     }
+
 }
 
 function memoryWrite() {

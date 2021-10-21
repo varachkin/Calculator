@@ -14,8 +14,11 @@
     <div class="history_block">
         <div id="history_content"></div>
     </div>
-    <div class="output output_1" id="out-top"></div>
-    <div class="output output_2" id="out-bottom">0</div>
+    <div class="output_field" id="_output_field">
+        <div class="output output_1" id="out-top"></div>
+        <div class="output output_2" id="out-bottom">0</div>
+    </div>
+
 
     <div class="grid_btn">
         <button onclick="memoryWrite()" class="btn btn_function">M+</button>
@@ -28,19 +31,19 @@
         <button onclick="" class="btn btn_operation"><span>x<sup>n</sup></span></button>
         <button onclick="" class="btn btn_operation"><span><sup>2</sup>&radic;</span></button>
 
-        <button onclick="checkSymbol('7')" class="btn btn_number">7</button>
-        <button onclick="checkSymbol('8')" class="btn btn_number">8</button>
-        <button onclick="checkSymbol('9')" class="btn btn_number">9</button>
+        <button onclick="checkSymbol('7')" class="btn btn_number" id="_sevenNum">7</button>
+        <button onclick="checkSymbol('8')" class="btn btn_number" id="_eightNum">8</button>
+        <button onclick="checkSymbol('9')" class="btn btn_number" id="_nineNum">9</button>
         <button onclick="actionMath('/')" class="btn btn_action" id="_split">&divide;</button>
 
-        <button onclick="checkSymbol('4')" class="btn btn_number">4</button>
-        <button onclick="checkSymbol('5')" class="btn btn_number">5</button>
-        <button onclick="checkSymbol('6')" class="btn btn_number">6</button>
+        <button onclick="checkSymbol('4')" class="btn btn_number" id="_fourNum">4</button>
+        <button onclick="checkSymbol('5')" class="btn btn_number" id="_fiveNum">5</button>
+        <button onclick="checkSymbol('6')" class="btn btn_number" id="_sixNum">6</button>
         <button onclick="actionMath('*')" class="btn btn_action" id="_multi">&times;</button>
 
-        <button onclick="checkSymbol('1')" class="btn btn_number">1</button>
-        <button onclick="checkSymbol('2')" class="btn btn_number">2</button>
-        <button onclick="checkSymbol('3')" class="btn btn_number">3</button>
+        <button onclick="checkSymbol('1')" class="btn btn_number" id="_oneNum">1</button>
+        <button onclick="checkSymbol('2')" class="btn btn_number" id="_twoNum">2</button>
+        <button onclick="checkSymbol('3')" class="btn btn_number" id="_threeNum">3</button>
         <button onclick="actionMath('-')" class="btn btn_action" id="_minus">-</button>
 
         <button onclick="checkSymbol('0')" class="btn btn_number">0</button>
