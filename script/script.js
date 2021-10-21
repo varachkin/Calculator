@@ -98,7 +98,11 @@ function checkSymbol(num) {
                 return;
             }
         }
+        if (output.innerHTML.length === 0) {
+            output.innerHTML = '0';
+        }
     }
+
 
     // Проверяет на наличие открывающей скобки (нельзя ввести закрывающую, если нет открывающей)
     if (num === ')') {
