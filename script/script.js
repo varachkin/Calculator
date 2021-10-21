@@ -216,16 +216,19 @@ function clean() {
 }
 
 function actionMath(symbol) {
-    if (output.innerHTML === '' && symbol === '*' || symbol === '/' || symbol === '-' || symbol === '+') {
-        let tempString = String(memory.innerHTML);
-        if (tempString[tempString.length - 1] === '/' ||
-            tempString[tempString.length - 1] === '*' ||
-            tempString[tempString.length - 1] === '-' ||
-            tempString[tempString.length - 1] === '+'
-        ) {
-            memory.innerHTML = tempString.substring(0, tempString.length - 1) + symbol;
-            return;
+    if (symbol === '*' || symbol === '/' || symbol === '-' || symbol === '+') {
+        if (output.innerHTML === '') {
+            let tempString = String(memory.innerHTML);
+            if (tempString[tempString.length - 1] === '/' ||
+                tempString[tempString.length - 1] === '*' ||
+                tempString[tempString.length - 1] === '-' ||
+                tempString[tempString.length - 1] === '+'
+            ) {
+                memory.innerHTML = tempString.substring(0, tempString.length - 1) + symbol;
+                return;
+            }
         }
+
     }
     if (output.innerHTML[output.innerHTML.length - 1] === '(' || output.innerHTML === 'Infinity') {
         insertErrorClass('_multi');
