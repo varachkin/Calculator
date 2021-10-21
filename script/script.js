@@ -216,46 +216,54 @@ function clean() {
 }
 
 function actionMath(symbol) {
-    if (symbol === '*' || symbol === '/' || symbol === '-' || symbol === '+') {
-        if (output.innerHTML[output.innerHTML.length - 1] === '(' || output.innerHTML === 'Infinity') {
-            insertErrorClass('_multi');
-            insertErrorClass('_split');
-            insertErrorClass('_minus');
-            insertErrorClass('_plus');
+    if (output.innerHTML === '' && symbol === '*' || symbol === '/' || symbol === '-' || symbol === '+') {
+        let tempString = String(memory.innerHTML);
+        if (tempString[tempString.length - 1] === '/' ||
+            tempString[tempString.length - 1] === '*' ||
+            tempString[tempString.length - 1] === '-' ||
+            tempString[tempString.length - 1] === '+'
+        ) {
+            memory.innerHTML = tempString.substring(0, tempString.length - 1) + symbol;
             return;
         }
-        if (memory.innerHTML[memory.innerHTML.length - 1] === '=') {
-            memory.innerHTML = '';
-        }
-        output.innerHTML += symbol;
-        let outputValue = output.innerHTML;
-        if (outputValue[outputValue.length - 2] === '/' ||
-            outputValue[outputValue.length - 2] === '*' ||
-            outputValue[outputValue.length - 2] === '-' ||
-            outputValue[outputValue.length - 2] === '+'
-        ) {
-            output.innerHTML = outputValue.substring(0, outputValue.length - 2) + symbol;
+    }
+    if (output.innerHTML[output.innerHTML.length - 1] === '(' || output.innerHTML === 'Infinity') {
+        insertErrorClass('_multi');
+        insertErrorClass('_split');
+        insertErrorClass('_minus');
+        insertErrorClass('_plus');
+        return;
+    }
+    if (memory.innerHTML[memory.innerHTML.length - 1] === '=') {
+        memory.innerHTML = '';
+    }
+    output.innerHTML += symbol;
+    let outputValue = output.innerHTML;
+    if (outputValue[outputValue.length - 2] === '/' ||
+        outputValue[outputValue.length - 2] === '*' ||
+        outputValue[outputValue.length - 2] === '-' ||
+        outputValue[outputValue.length - 2] === '+'
+    ) {
+        output.innerHTML = outputValue.substring(0, outputValue.length - 2) + symbol;
+    } else {
+        let interString = eval(output.innerHTML.substring(0, output.innerHTML.length - 1));
+        if (outputValue[outputValue.length - 2] === ')') {
+            if (+interString >= 0) {
+                memory.innerHTML += interString + symbol;
+            } else {
+                memory.innerHTML += '(' + interString + ')' + symbol;
+            }
+            output.innerHTML = '';
         } else {
-            let interString = eval(output.innerHTML.substring(0, output.innerHTML.length - 1));
-            if (outputValue[outputValue.length - 2] === ')') {
+            if (outputValue[0] !== '(') {
                 if (+interString >= 0) {
                     memory.innerHTML += interString + symbol;
                 } else {
                     memory.innerHTML += '(' + interString + ')' + symbol;
                 }
                 output.innerHTML = '';
-            } else {
-                if (outputValue[0] !== '(') {
-                    if (+interString >= 0) {
-                        memory.innerHTML += interString + symbol;
-                    } else {
-                        memory.innerHTML += '(' + interString + ')' + symbol;
-                    }
-                    output.innerHTML = '';
-                }
             }
         }
-
     }
 }
 
@@ -302,3 +310,6 @@ function memoryRead() {
         insertErrorClass('_mr');
     }
 }
+
+
+// Доделать
