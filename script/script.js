@@ -241,7 +241,17 @@ function clean() {
 }
 
 function cleanCE() {
+    let flag;
+    for (let i = 0; i < memory.innerHTML.length; i++) {
+        if (memory.innerHTML[i] === '=') {
+            flag = true;
+        }
+    }
+    if (flag) {
+        memory.innerHTML = '';
+    }
     output.innerHTML = '0';
+    removeSymbolOutput();
 }
 
 function actionMath(symbol) {
