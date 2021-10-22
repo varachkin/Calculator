@@ -52,6 +52,11 @@ function insertSymbol(num) {
 }
 
 function checkSymbol(num) {
+
+    if (memory.innerHTML[memory.innerHTML.length - 1] === '=') {
+        memory.innerHTML = '';
+        output.innerHTML = '';
+    }
     if (output.innerHTML.length >= 10) {
         insertErrorClass('_output_field');
         switch (+num) {
@@ -94,12 +99,12 @@ function checkSymbol(num) {
         }
         return;
     }
-    if (memory.innerHTML[memory.innerHTML.length - 1] === '=') {
-        memory.innerHTML = '';
-        output.innerHTML = '';
-    }
     // Проверяет на наличие двух точек (допустима только одна)
     if (num === '.') {
+        if (output.innerHTML === 'ERROR') {
+            output.innerHTML = '0';
+            removeSymbolOutput();
+        }
         if (output.innerHTML[output.innerHTML.length - 1] === '/' ||
             output.innerHTML[output.innerHTML.length - 1] === '*' ||
             output.innerHTML[output.innerHTML.length - 1] === '-' ||
@@ -235,6 +240,10 @@ function clean() {
     removeSymbolOutput();
 }
 
+function cleanCE() {
+    output.innerHTML = '0';
+}
+
 function actionMath(symbol) {
     if (symbol === '*' || symbol === '/' || symbol === '-' || symbol === '+') {
         if (output.innerHTML === '') {
@@ -347,15 +356,17 @@ function memoryWrite() {
     dataMemory = output.innerHTML;
 }
 
+function memoryRemove() {
+    dataMemory = null;
+}
+
 function memoryRead() {
     if (dataMemory) {
         let x = memory.innerText;
         if (x.length >= 2) {
             output.innerHTML = dataMemory;
-            memory.innerText = dataMemory;
         } else {
             output.innerHTML = dataMemory;
-            memory.innerText = output.innerHTML;
         }
     } else {
         insertErrorClass('_mr');

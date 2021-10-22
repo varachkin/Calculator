@@ -23,9 +23,14 @@
 
     <div class="grid_btn">
         <button onclick="memoryWrite()" class="btn btn_function">M+</button>
+        <button onclick="memoryRemove()" class="btn btn_function">M-</button>
         <button onclick="memoryRead()" class="btn btn_function" id="_mr">MR</button>
-        <button onclick="clean()" class="btn btn_function">C</button>
+        <button onclick="clean()" class="btn btn_clear btn_big">C</button>
+
+        <button onclick="" class="btn btn_function">+/-</button>
         <button onclick="backspace()" class="btn btn_function">&larr;</button>
+        <button onclick="cleanCE()" class="btn btn_function">CE</button>
+
 
         <button onclick="checkSymbol('(')" class="btn btn_operation" id="_open_bracket">(</button>
         <button onclick="checkSymbol(')')" class="btn btn_operation" id="_close_bracket">)</button>
