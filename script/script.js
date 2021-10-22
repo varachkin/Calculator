@@ -3,8 +3,25 @@ let memory = document.getElementById("out-top");
 let history = document.getElementById("history_content");
 let d = document.getElementById('_dot');
 let res = document.getElementById('_result');
+let outputSymbol = document.querySelector('.output_symbol');
 let dataMemory;
 
+function removeSymbolOutput() {
+    if (output.innerHTML === 'ERROR') {
+        output.innerHTML = '';
+        outputSymbol.innerHTML = '';
+    } else {
+        outputSymbol.innerHTML = '';
+    }
+}
+
+function addSymbolOutput(flag) {
+    if (flag) {
+        outputSymbol.innerHTML = '&asymp;';
+    } else {
+        outputSymbol.innerHTML = '&#9940;';
+    }
+}
 
 function removeErrorClass() {
     let errorItem = document.querySelector('.btn_error');
@@ -30,6 +47,7 @@ function insertErrorClass(id) {
 }
 
 function insertSymbol(num) {
+    removeSymbolOutput();
     output.innerHTML += num;
 }
 
@@ -202,6 +220,7 @@ function checkSymbol(num) {
 }
 
 function backspace() {
+    removeSymbolOutput();
     let presentValueOutput = output.innerHTML;
     if (presentValueOutput.length === 1) {
         output.innerHTML = '0';
@@ -213,6 +232,7 @@ function backspace() {
 function clean() {
     output.innerHTML = '0';
     memory.innerHTML = '';
+    removeSymbolOutput();
 }
 
 function actionMath(symbol) {
@@ -228,9 +248,8 @@ function actionMath(symbol) {
                 return;
             }
         }
-
     }
-    if (output.innerHTML[output.innerHTML.length - 1] === '(' || output.innerHTML === 'Infinity') {
+    if (output.innerHTML[output.innerHTML.length - 1] === '(' || output.innerHTML === 'Infinity' || output.innerHTML === 'ERROR') {
         insertErrorClass('_multi');
         insertErrorClass('_split');
         insertErrorClass('_minus');
@@ -268,6 +287,7 @@ function actionMath(symbol) {
             }
         }
     }
+    removeSymbolOutput();
 }
 
 
@@ -285,8 +305,25 @@ function getResult(symbol) {
         let result = eval(memory.innerHTML + output.innerHTML);
         console.log(result);
         if (String(result).length > 11) {
-            memory.innerHTML += output.innerHTML + symbol;
-            output.innerHTML = String(result).substring(0, 11);
+            let flag = false;
+            for (let i = 0; i < String(result).length; i++) {
+                if (String(result)[i] === '.') {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                memory.innerHTML += output.innerHTML + symbol;
+                output.innerHTML = String(result).substring(0, 11);
+                addSymbolOutput(flag);
+            } else {
+                output.innerHTML = 'ERROR';
+                memory.innerHTML = '';
+                insertErrorClass('_output_field');
+                addSymbolOutput(flag);
+                history.innerHTML += '<li>' + 'ERROR' + '</li>';
+                return;
+            }
         } else {
             memory.innerHTML += output.innerHTML + symbol;
             output.innerHTML = result;
