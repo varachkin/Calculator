@@ -27,15 +27,15 @@
         <button onclick="memoryRead()" class="btn btn_function" id="_mr">MR</button>
         <button onclick="clean()" class="btn btn_clear btn_big">C</button>
 
-        <button onclick="" class="btn btn_function">+/-</button>
+        <button onclick="changeValue()" class="btn btn_function" id="_change_value">+/-</button>
         <button onclick="backspace()" class="btn btn_function">&larr;</button>
         <button onclick="cleanCE()" class="btn btn_function">CE</button>
 
 
         <button onclick="checkSymbol('(')" class="btn btn_operation" id="_open_bracket">(</button>
         <button onclick="checkSymbol(')')" class="btn btn_operation" id="_close_bracket">)</button>
-        <button onclick="" class="btn btn_operation"><span>x<sup>n</sup></span></button>
-        <button onclick="" class="btn btn_operation"><span><sup>2</sup>&radic;</span></button>
+        <button onclick="calcPow()" class="btn btn_operation" id="_pow"><span>x<sup>2</sup></span></button>
+        <button onclick="calcSqrt()" class="btn btn_operation" id="_sqrt"><span><sup>2</sup>&radic;</span></button>
 
         <button onclick="checkSymbol('7')" class="btn btn_number" id="_sevenNum">7</button>
         <button onclick="checkSymbol('8')" class="btn btn_number" id="_eightNum">8</button>

@@ -52,7 +52,6 @@ function insertSymbol(num) {
 }
 
 function checkSymbol(num) {
-
     if (memory.innerHTML[memory.innerHTML.length - 1] === '=') {
         memory.innerHTML = '';
         output.innerHTML = '';
@@ -255,6 +254,12 @@ function cleanCE() {
 }
 
 function actionMath(symbol) {
+    for (let i = 0; i < memory.innerHTML.length; i++) {
+        if (memory.innerHTML[i] === '=') {
+            memory.innerHTML = '';
+            break;
+        }
+    }
     if (symbol === '*' || symbol === '/' || symbol === '-' || symbol === '+') {
         if (output.innerHTML === '') {
             let tempString = String(memory.innerHTML);
@@ -308,7 +313,6 @@ function actionMath(symbol) {
     }
     removeSymbolOutput();
 }
-
 
 function getResult(symbol) {
     if (output.innerHTML === '' ||
@@ -380,5 +384,65 @@ function memoryRead() {
         }
     } else {
         insertErrorClass('_mr');
+    }
+}
+
+function changeValue() {
+    if (output.innerHTML && output.innerHTML !== '0') {
+        if (output.innerHTML[0] === '(' && output.innerHTML[1] === '-' && output.innerHTML[output.innerHTML.length - 1] === ')') {
+            output.innerHTML = output.innerHTML.split('(').join('');
+            output.innerHTML = output.innerHTML.split('-').join('');
+            output.innerHTML = output.innerHTML.split(')').join('');
+            return;
+        }
+        let flag = false;
+        for (let i = 0; i < memory.innerHTML.length; i++) {
+            if (memory.innerHTML[i] === '=') {
+                flag = true;
+                break;
+            }
+        }
+        if (output.innerHTML[0] === '(' || output.innerHTML.length >= 10 || flag === true || output.innerHTML === 'ERROR' || output.innerHTML === 'Infinity') {
+            insertErrorClass('_change_value');
+            return;
+        }
+        output.innerHTML = '(-' + output.innerHTML + ')';
+    }
+}
+
+function calcSqrt() {
+    let valueOutput = eval(output.innerHTML);
+    if (valueOutput < 0 || output.innerHTML === 'ERROR' || output.innerHTML === 'Infinity') {
+        insertErrorClass('_sqrt');
+    } else {
+        let resultSqrt = String(Math.sqrt(valueOutput));
+        if (resultSqrt.length > 11) {
+            history.innerHTML += '<li>' + String(eval(output.innerHTML)) + ' ^ ' + '2' + ' = ' + resultSqrt.substring(0, 11) + '</li>';
+            memory.innerHTML = String(eval(output.innerHTML)) + ' ^ ' + '2' + ' =' + resultSqrt.substring(0, 11);
+            output.innerHTML = resultSqrt.substring(0, 11);
+
+        } else {
+            history.innerHTML += '<li>' + String(eval(output.innerHTML)) + ' ^ ' + '2' + ' = ' + resultSqrt + '</li>';
+            memory.innerHTML = String(eval(output.innerHTML)) + ' ^ ' + '2' + ' =';
+            output.innerHTML = resultSqrt;
+        }
+    }
+}
+
+function calcPow() {
+    if (output.innerHTML === 'ERROR' || output.innerHTML === 'Infinity') {
+        insertErrorClass('_pow');
+    } else {
+        let valueOutput = eval(output.innerHTML);
+        let resultSqrt = String(valueOutput ** 2);
+        if (resultSqrt.length > 11) {
+            history.innerHTML += '<li>' + String(eval(output.innerHTML)) + '<span><sup>2</sup></span>' + ' = ' + resultSqrt.substring(0, 11) + '</li>';
+            memory.innerHTML = String(eval(output.innerHTML)) + '<span><sup>2</sup></span>' + ' =';
+            output.innerHTML = resultSqrt.substring(0, 11);
+        } else {
+            history.innerHTML += '<li>' + String(eval(output.innerHTML)) + '<span><sup>2</sup></span>' + ' = ' + resultSqrt + '</li>';
+            memory.innerHTML = String(eval(output.innerHTML)) + '<span><sup>2</sup></span>' + ' =';
+            output.innerHTML = resultSqrt;
+        }
     }
 }
