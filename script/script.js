@@ -418,7 +418,7 @@ function calcSqrt() {
         let resultSqrt = String(Math.sqrt(valueOutput));
         if (resultSqrt.length > 11) {
             history.innerHTML += '<li>' + String(eval(output.innerHTML)) + ' ^ ' + '2' + ' = ' + resultSqrt.substring(0, 11) + '</li>';
-            memory.innerHTML = String(eval(output.innerHTML)) + ' ^ ' + '2' + ' =' + resultSqrt.substring(0, 11);
+            memory.innerHTML = String(eval(output.innerHTML)) + ' ^ ' + '2' + ' =';
             output.innerHTML = resultSqrt.substring(0, 11);
 
         } else {
