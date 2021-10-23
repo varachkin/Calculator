@@ -412,7 +412,7 @@ function changeValue() {
 
 function calcSqrt() {
     let valueOutput = eval(output.innerHTML);
-    if (valueOutput < 0 || output.innerHTML === 'ERROR' || output.innerHTML === 'Infinity') {
+    if (valueOutput < 0 || output.innerHTML === 'ERROR' || output.innerHTML === 'Infinity' || output.innerHTML === '') {
         insertErrorClass('_sqrt');
     } else {
         let resultSqrt = String(Math.sqrt(valueOutput));
@@ -430,7 +430,7 @@ function calcSqrt() {
 }
 
 function calcPow() {
-    if (output.innerHTML === 'ERROR' || output.innerHTML === 'Infinity') {
+    if (output.innerHTML === 'ERROR' || output.innerHTML === 'Infinity' || output.innerHTML === '') {
         insertErrorClass('_pow');
     } else {
         let valueOutput = eval(output.innerHTML);

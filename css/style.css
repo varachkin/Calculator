@@ -86,8 +86,7 @@ sup {
     position: absolute;
     top: 3px;
     left: 15px;
-    /*width: 60px;*/
-    /*height: 10px;*/
+    right: 15px;
     padding: 5px 10px;
     z-index: 4;
     border: 1px solid rgba(1, 1, 1, 0.2);
@@ -97,7 +96,7 @@ sup {
     font-size: 10px;
     transition: 0.2s;
     border-radius: 3px;
-    background-color: #454545;
+    background-color: rgba(69, 69, 69, 0.4);
     color: #FFFFFF;
 }
 
@@ -190,8 +189,9 @@ sup {
 
 label.history_btn:hover {
     cursor: pointer;
-    box-shadow: 1px 0 1px 1px rgba(0, 0, 0, 0.6);
-    color: #f4a944;
+    box-shadow: 1px 0 3px 1px rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+    /*color: #f4a944;*/
 }
 
 .grid_btn {
