@@ -224,8 +224,13 @@ function checkSymbol(num) {
 }
 
 function backspace() {
-    removeSymbolOutput();
     let presentValueOutput = output.innerHTML;
+    if (presentValueOutput === 'ERROR' || presentValueOutput === 'Infinity' || outputSymbol) {
+        removeSymbolOutput();
+        output.innerHTML = '0';
+        memory.innerHTML = '';
+        return;
+    }
     if (presentValueOutput.length === 1) {
         output.innerHTML = '0';
     } else {
