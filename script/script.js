@@ -225,16 +225,18 @@ function checkSymbol(num) {
 
 function backspace() {
     let presentValueOutput = output.innerHTML;
-    if (presentValueOutput === 'ERROR' || presentValueOutput === 'Infinity' || outputSymbol) {
+    if (presentValueOutput === 'ERROR' || presentValueOutput === 'Infinity' || memory.innerHTML[memory.innerHTML.length - 1] === '=') {
         removeSymbolOutput();
         output.innerHTML = '0';
         memory.innerHTML = '';
-        return;
-    }
-    if (presentValueOutput.length === 1) {
-        output.innerHTML = '0';
+
     } else {
-        output.innerHTML = presentValueOutput.substring(0, presentValueOutput.length - 1);
+        removeSymbolOutput();
+        if (presentValueOutput.length === 1) {
+            output.innerHTML = '0';
+        } else {
+            output.innerHTML = presentValueOutput.substring(0, presentValueOutput.length - 1);
+        }
     }
 }
 
